@@ -25,6 +25,8 @@ free_gb="$(df -g "$root" | awk 'NR==2 {print $4}')"
 [ "$free_gb" -ge "$min_free_gb" ] || die "only ${free_gb}GB free, need about ${min_free_gb}GB for the Chromium source and build"
 
 command -v brew >/dev/null || die "Homebrew missing: https://brew.sh"
+# Only install what's missing: don't upgrade unrelated formulae (and fail on their warnings) as a side effect.
+export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 brew install python@3.13 wget coreutils readline quilt
 brew unlink binutils 2>/dev/null || true
 
