@@ -6,7 +6,7 @@ Everything personal lives in `personal/`, so merging upstream stays conflict-fre
 ## First time (on the Mac)
 
 ```sh
-git clone --recurse-submodules https://github.com/<you>/helium-macos.git ~/Projects/helium-macos
+git clone --recurse-submodules https://github.com/joshbilson/helium-macos.git ~/Projects/helium-macos
 cd ~/Projects/helium-macos
 personal/bootstrap.sh   # checks Xcode 26 + ~120GB free, installs Homebrew deps and .venv
 personal/build.sh       # several hours the first time; output: build/*.dmg
