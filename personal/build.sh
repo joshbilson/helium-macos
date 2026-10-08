@@ -35,6 +35,17 @@ if [ ! -f "$gsutil_dir/gsutil/install.flag" ]; then
   rm -rf "$tmp"
 fi
 
+# TypeScript resolves types by walking up for node_modules, so a stray one above the checkout
+# (e.g. ~/node_modules) leaks into Chromium's ts_library steps and fails them.
+dir="$(dirname "$root")"
+while [ "$dir" != / ]; do
+  if [ -d "$dir/node_modules" ]; then
+    echo "error: $dir/node_modules breaks Chromium's TypeScript steps; move it aside for the build" >&2
+    exit 1
+  fi
+  dir="$(dirname "$dir")"
+done
+
 mkdir -p "$root/build"
 log="$root/build/build-$(date +%Y%m%d-%H%M%S).log"
 echo "building $arch ($mode), log: $log"
