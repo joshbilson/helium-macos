@@ -15,7 +15,8 @@ case "${1:-}" in
 esac
 arch="${1:-$(uname -m)}"
 
-export PATH="$root/.venv/bin:$PATH"
+export PATH="$root/.venv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export _root_dir="$root"
 unset MACOS_CERTIFICATE_NAME # unsigned local build
 
 # Domain substitution rewrites googleapis.com in depot_tools/gsutil.py to a dead domain, and
